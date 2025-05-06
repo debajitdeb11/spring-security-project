@@ -38,4 +38,17 @@ public class UserController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user) {
+
+        String result = userService.login(user);
+
+        if (result == null) {
+            return ResponseEntity.status(401).body("Invalid Username or password");
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }
